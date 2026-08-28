@@ -6,9 +6,10 @@ Problem Statement #08: Campus & Academic Operations
 ## Deliverables
 
 - [`requirements_table.csv`](requirements_table.csv) - exactly 5 functional requirements and 2 non-functional requirements with measurable acceptance criteria and rationale.
-- [`use_case_diagram.pdf`](use_case_diagram.pdf) - UML use-case model with the Student Member, Head Librarian, and Notification Service actors; five core use cases; one `<<include>>` and one `<<extend>>` relationship.
+- [`library_usecase_diagram_handdrawn.png`](library_usecase_diagram_handdrawn.png) - supplied hand-drawn UML use-case model with the Student Member, Head Librarian, and Notification Service actors; six use cases; one `<<include>>` and one `<<extend>>` relationship.
 - [`use_case_diagram.svg`](use_case_diagram.svg) - editable vector source for the diagram; no rasterized or altered external artwork is used.
 - [`use_case_flow.pdf`](use_case_flow.pdf) - one-page flow for UC-02 Place Hold on Loaned Book.
+- [`Lab1_Submission_Report.pdf`](Lab1_Submission_Report.pdf) - consolidated report containing the requirements table, supplied UML diagram, and complete use-case flow.
 - [`use_case_flow.md`](use_case_flow.md) - editable source for the flow document.
 
 ## Scope and Traceability
@@ -23,4 +24,4 @@ Relationships: `Place Hold <<include>> Validate Member Eligibility`; `Send Avail
 
 ## Source and Verification
 
-The PDF deliverables were generated from the editable Markdown/CSV/SVG sources with a deterministic Python renderer. The repository contains no copied images from the supplied handout; the diagram is vector-native and preserves labels and relationship arrows.
+The consolidated PDF report is generated from the editable Markdown/CSV sources and the supplied PNG. The hand-drawn diagram is preserved unchanged as the repository's authoritative diagram asset; no image editing or redraw was applied.
