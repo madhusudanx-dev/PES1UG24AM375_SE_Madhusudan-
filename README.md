@@ -6,7 +6,7 @@ Problem Statement #08: Campus & Academic Operations
 ## Deliverables
 
 - [`requirements_table.csv`](requirements_table.csv) - exactly 5 functional requirements and 2 non-functional requirements with measurable acceptance criteria and rationale.
-- [`library_usecase_diagram_handdrawn.png`](library_usecase_diagram_handdrawn.png) - supplied hand-drawn UML use-case model with the Student Member, Head Librarian, and Notification Service actors; six use cases; one `<<include>>` and one `<<extend>>` relationship.
+- [`use_case_diagram.pdf`](use_case_diagram.pdf) - supplied draw.io UML use-case model with the Student Member, Head Librarian, and Notification Service actors; six use cases; one `<<include>>` and one `<<extend>>` relationship.
 - [`use_case_diagram.svg`](use_case_diagram.svg) - editable vector source for the diagram; no rasterized or altered external artwork is used.
 - [`use_case_flow.pdf`](use_case_flow.pdf) - one-page flow for UC-02 Place Hold on Loaned Book.
 - [`Lab1_Submission_Report.pdf`](Lab1_Submission_Report.pdf) - consolidated report containing the requirements table, supplied UML diagram, and complete use-case flow.
@@ -24,4 +24,4 @@ Relationships: `Place Hold <<include>> Validate Member Eligibility`; `Send Avail
 
 ## Source and Verification
 
-The consolidated PDF report is generated from the editable Markdown/CSV sources and the supplied PNG. The hand-drawn diagram is preserved unchanged as the repository's authoritative diagram asset; no image editing or redraw was applied.
+The consolidated PDF report is generated from the editable Markdown/CSV sources and the supplied draw.io PDF. The diagram is preserved as a one-page vector PDF (the blank trailing page in the source export is omitted); no redraw or image alteration was applied.
