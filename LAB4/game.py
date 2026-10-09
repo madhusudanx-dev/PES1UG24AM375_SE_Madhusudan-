@@ -7,6 +7,12 @@ class Game:
         self.best_score = 0
         self.history = []
 
+    def has_won(self):
+        return any(tile >= 2048 for row in self.board.grid for tile in row)
+
+    def is_game_over(self):
+        return self.has_won() or not self.board.can_move()
+
     def display(self):
         print("\n" + "+------+------+------+------+")
         for row in self.board.grid:
@@ -17,10 +23,10 @@ class Game:
     def move(self, key):
         moves = {"a": self.board.move_left, "d": self.board.move_right,
                  "w": self.board.move_up, "s": self.board.move_down}
-        if key not in moves:
+        if key not in moves or self.is_game_over():
             return False
         changed = moves[key]()
-        if changed:
+        if changed and not self.has_won():
             self.board.add_random_tile()
         return changed
 
@@ -28,7 +34,7 @@ class Game:
         print("2048 — W/A/S/D to move, U to undo, Q to quit.")
         while True:
             self.display()
-            if any(2048 in row for row in self.board.grid):
+            if self.has_won():
                 print("You reached 2048!")
                 return
             if not self.board.can_move():
