@@ -5,7 +5,7 @@ class Game:
     def __init__(self):
         self.board = Board()
         self.best_score = 0
-        self.history = []
+        self._undo_state = None
 
     def has_won(self):
         return any(tile >= 2048 for row in self.board.grid for tile in row)
@@ -25,10 +25,27 @@ class Game:
                  "w": self.board.move_up, "s": self.board.move_down}
         if key not in moves or self.is_game_over():
             return False
+
+        previous_state = ([row[:] for row in self.board.grid], self.board.score)
         changed = moves[key]()
-        if changed and not self.has_won():
-            self.board.add_random_tile()
+        if changed:
+            self._undo_state = previous_state
+            self.best_score = max(self.best_score, self.board.score)
+            if not self.has_won():
+                self.board.add_random_tile()
         return changed
+
+    def undo(self):
+        if self._undo_state is None:
+            return False
+
+        grid, score = self._undo_state
+        self.board.grid = [row[:] for row in grid]
+        self.board.score = score
+        self.board.last_merge_score = 0
+        self.board.last_merge_count = 0
+        self._undo_state = None
+        return True
 
     def run(self):
         print("2048 — W/A/S/D to move, U to undo, Q to quit.")
@@ -44,10 +61,12 @@ class Game:
             if key == "q":
                 return
             if key == "u":
-                print("Undo is not implemented yet.")
+                if self.undo():
+                    print("Undid the previous move.")
+                else:
+                    print("Nothing to undo.")
                 continue
             if key not in "wasd":
                 print("Use W/A/S/D.")
                 continue
-            if self.move(key):
-                self.best_score = max(self.best_score, self.board.score)
+            self.move(key)
