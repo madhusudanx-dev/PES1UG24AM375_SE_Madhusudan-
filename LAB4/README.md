@@ -1,101 +1,53 @@
-# Scenario 14 — 2048
+# Lab 4 - 2048
 
-A terminal 2048 implementation with directional movement and tile merging.
+This folder contains the completed terminal 2048 lab. The original four-equal-tile merge defect is fixed, and the game now includes complete win/loss handling, one-step undo, best-score tracking, and concise move feedback.
 
-## Provided files
+## Run the game
 
-- `main.py` — entry point.
-- `game.py` — game loop, commands, and game state.
-- `board.py` — grid movement and tile logic.
-- `requirements.txt` — dependency declaration.
-
-## Setup
+From this folder, run:
 
 ```bash
 python main.py
 ```
 
-No package installation is required.
+The game uses only the Python standard library. Use `W`, `A`, `S`, and `D` to move, `U` to undo the last successful move, and `Q` to quit.
 
-## Before changing the code
+## Run the tests
 
-Run the starter and deliberately construct repeated-tile rows if possible. Read the
-board movement code and trace one complete move from input to tile creation.
+```bash
+python -m unittest discover -s tests -v
+```
 
-## Task 1 — Correct merge semantics
+The regression suite covers ordinary slides in all directions, four equal tiles, independent merges, score updates, unchanged and invalid moves, win and no-move states, tile creation, undo, best score, feedback, and quitting.
 
-Fix the merge algorithm so an original tile can participate in at most one merge
-during a single move. Preserve normal compression and movement behaviour.
+## Completed tasks
 
-**Done when:** repeated patterns such as four equal tiles produce the standard 2048
-result, not a chain merge of a newly created tile in the same move.
+1. A tile can merge at most once per move. Merge points are added to the score.
+2. Reaching 2048 or having no legal moves ends the game. A tile is created only after a successful, non-winning move.
+3. Undo restores the board and score for the last successful move. The best score records the highest score reached during the run.
+4. Each action reports its result once. Board-scanning methods do not print action feedback.
 
-## Task 2 — Finish game-state handling
+All game state stays in memory. No third-party runtime dependencies or persistent storage were added.
 
-Implement win detection, no-move detection, and correct tile creation semantics.
-A move that leaves the board unchanged must not create a new tile.
+## Submission files
 
-**Done when:** reaching 2048 ends the game, a full board with no legal moves ends the
-game, and unchanged moves do not alter the board.
-
-## Task 3 — Undo and best score
-
-Add a one-level undo. Restoring a move must restore both board contents and score.
-Track the best score for the current run.
-
-**Done when:** one undo reverses exactly one successful move and does not create a tile.
-
-## Task 4 — Move feedback
-
-Add concise feedback for successful moves and merges. Do not trigger feedback merely
-because internal board-scanning functions were called.
-
-**Done when:** one accepted move produces one action-level result and invalid/unchanged
-moves do not claim that a move occurred.
-
-## Required testing
-
-Test ordinary slides, four-equal patterns, separated equal pairs, unchanged moves,
-2048 detection, no-move boards, undo, score restoration, invalid commands, and quitting.
-
-
-## LLM usage
-
-You may use an LLM during the lab. The goal is to use it as a coding assistant while
-retaining responsibility for understanding and testing the result.
-
-- Inspect the existing code before asking for changes.
-- Ask for explanations when you do not understand a proposed change.
-- Test generated code against the stated behaviour and edge cases.
-- Keep your complete LLM chat history for submission.
-- Do not replace the whole project with an unrelated implementation.
-- Keep all state in memory; do not add CSV, JSON, SQLite, or other persistence.
-
-## Submission checklist
-
-- [ ] Task 1 completed and the original defect was reproduced and fixed.
-- [ ] Tasks 2–4 completed and tested.
-- [ ] Boundary and invalid-input cases tested.
-- [ ] No unnecessary external dependencies added.
-- [ ] No persistent storage added.
-- [ ] Code remains understandable and modular.
-- [ ] Complete LLM chat-history link included.
+- `board.py`, `game.py`, `main.py`, and `requirements.txt` contain the updated game.
+- `tests/` contains the standard-library regression tests.
+- `videos/before_demo.mp4` and `videos/after_demo.mp4` are 10-second rendered walkthroughs of the baseline defect and corrected game behavior. They are generated demos, not desktop screen recordings.
+- `LLM_CHAT_HISTORY.docx` records the request and implementation summary. The complete visible conversation is available at the [full chat history](https://chatgpt.com/s/cx_6ac868d2f7408191b56aa90440b8e0d6).
 
 ## Folder structure
 
 ```text
-scenario-02-2048/
+LAB4/
 ├── README.md
-├── requirements.txt
-├── main.py
+├── board.py
 ├── game.py
-└── board.py
+├── main.py
+├── requirements.txt
+├── LLM_CHAT_HISTORY.docx
+├── tests/
+└── videos/
+    ├── before_demo.mp4
+    └── after_demo.mp4
 ```
-
-## Submission Checklist
-
-Submission is only the following three things:
-
-- [ ] A 10-second video of gameplay **before** your changes, showing the bug/broken behavior
-- [ ] A 10-second video of gameplay **after** your changes, showing the bug fixed and the new features working
-- [ ] The Chat/LLM used page link, with the complete chat history

@@ -69,7 +69,7 @@ class Game:
         return True
 
     def run(self):
-        print("2048 — W/A/S/D to move, U to undo, Q to quit.")
+        print("2048 - W/A/S/D to move, U to undo, Q to quit.")
         while True:
             self.display()
             if self.has_won():

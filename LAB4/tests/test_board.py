@@ -20,6 +20,9 @@ class BoardMergeTests(unittest.TestCase):
     def test_separated_equal_tiles_compress_then_merge(self):
         self.assertEqual(Board.slide_line([2, 0, 2, 4]), [4, 4, 0, 0])
 
+    def test_separate_equal_pairs_merge_independently(self):
+        self.assertEqual(Board.slide_line([2, 2, 4, 4]), [4, 8, 0, 0])
+
     def test_move_adds_only_the_value_of_new_tiles_to_score(self):
         board = self.make_board([2, 2, 4, 0])
 
@@ -28,6 +31,37 @@ class BoardMergeTests(unittest.TestCase):
         self.assertEqual(board.score, 4)
         self.assertEqual(board.last_merge_score, 4)
         self.assertEqual(board.last_merge_count, 1)
+
+    def test_ordinary_slides_compress_in_all_directions(self):
+        cases = (
+            ("move_left", [0, 2, 0, 4], [2, 4, 0, 0], "row"),
+            ("move_right", [0, 2, 0, 4], [0, 0, 2, 4], "row"),
+            ("move_up", [0, 2, 0, 4], [2, 4, 0, 0], "column"),
+            ("move_down", [0, 2, 0, 4], [0, 0, 2, 4], "column"),
+        )
+
+        for method_name, values, expected, orientation in cases:
+            with self.subTest(direction=method_name):
+                with patch.object(Board, "add_random_tile"):
+                    board = Board()
+                board.grid = [[0] * 4 for _ in range(4)]
+                if orientation == "row":
+                    board.grid[0] = values[:]
+                else:
+                    for row, value in enumerate(values):
+                        board.grid[row][0] = value
+
+                self.assertTrue(getattr(board, method_name)())
+                result = board.grid[0] if orientation == "row" else [row[0] for row in board.grid]
+                self.assertEqual(result, expected)
+
+    def test_two_independent_merges_add_both_values_to_score(self):
+        board = self.make_board([2, 2, 4, 4])
+
+        self.assertTrue(board.move_left())
+        self.assertEqual(board.grid[0], [4, 8, 0, 0])
+        self.assertEqual(board.score, 12)
+        self.assertEqual(board.last_merge_count, 2)
 
 
 if __name__ == "__main__":

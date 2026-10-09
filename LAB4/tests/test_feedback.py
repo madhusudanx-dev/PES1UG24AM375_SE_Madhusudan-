@@ -73,6 +73,25 @@ class MoveFeedbackTests(unittest.TestCase):
 
         self.assertEqual(game.last_feedback, "Undid the previous move.")
 
+    def test_run_prints_invalid_command_feedback_once(self):
+        game = self.make_game([0, 2, 0, 0])
+        output = StringIO()
+        with patch("builtins.input", side_effect=["x", "q"]):
+            with redirect_stdout(output):
+                game.run()
+
+        message = "Use W/A/S/D to move, U to undo, or Q to quit."
+        self.assertEqual(output.getvalue().count(message), 1)
+
+    def test_quit_returns_without_requesting_another_command(self):
+        game = self.make_game([0, 2, 0, 0])
+        output = StringIO()
+        with patch("builtins.input", return_value="q") as read_input:
+            with redirect_stdout(output):
+                game.run()
+
+        read_input.assert_called_once_with("> ")
+
 
 if __name__ == "__main__":
     unittest.main()
