@@ -34,7 +34,7 @@ All game state stays in memory. No third-party runtime dependencies or persisten
 - `board.py`, `game.py`, `main.py`, and `requirements.txt` contain the updated game.
 - `tests/` contains the standard-library regression tests.
 - `videos/before_demo.mp4` and `videos/after_demo.mp4` are 10-second rendered walkthroughs of the baseline defect and corrected game behavior. They are generated demos, not desktop screen recordings.
-- `LLM_CHAT_HISTORY.docx` records the request and implementation summary. The complete visible conversation is available at the [full chat history](https://chatgpt.com/s/cx_6ac868d2f7408191b56aa90440b8e0d6).
+- `LLM_CHAT_HISTORY.docx` lists the lab steps in order and links to the complete visible conversation at the [full chat history](https://chatgpt.com/s/cx_6ac868d2f7408191b56aa90440b8e0d6).
 
 ## Folder structure
 
